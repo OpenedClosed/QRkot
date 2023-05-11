@@ -42,7 +42,7 @@ async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
 
 
 async def set_user_permissions(
-    spreadsheetid: str,
+    spreadsheet_id: str,
     wrapper_services: Aiogoogle
 ) -> None:
     """Определение прав пользователя."""
@@ -54,7 +54,7 @@ async def set_user_permissions(
     service = await wrapper_services.discover('drive', 'v3')
     await wrapper_services.as_service_account(
         service.permissions.create(
-            fileId=spreadsheetid,
+            fileId=spreadsheet_id,
             json=permissions_body,
             fields="id"
         )
@@ -62,7 +62,7 @@ async def set_user_permissions(
 
 
 async def spreadsheets_update_value(
-    spreadsheetid: str,
+    spreadsheet_id: str,
     projects: list,
     wrapper_services: Aiogoogle
 ) -> None:
@@ -88,7 +88,7 @@ async def spreadsheets_update_value(
     }
     response = await wrapper_services.as_service_account(
         service.spreadsheets.values.update(
-            spreadsheetId=spreadsheetid,
+            spreadsheetId=spreadsheet_id,
             range='A1:E30',
             valueInputOption='USER_ENTERED',
             json=update_body
